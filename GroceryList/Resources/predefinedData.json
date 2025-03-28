@@ -1,0 +1,160 @@
+{
+    "categories": [
+        {
+            "name": "Dairy",
+            "foodItems": [
+                {"name": "Milk"},
+                {"name": "Cheese"},
+                {"name": "Butter"},
+                {"name": "Yogurt"}
+            ]
+        },
+        {
+            "name": "Fruits",
+            "foodItems": [
+                {"name": "Apple"},
+                {"name": "Banana"},
+                {"name": "Strawberry"}
+            ]
+        },
+        {
+            "name": "Vegetables",
+            "foodItems": [
+                {"name": "Cucumber"},
+                {"name": "Onion"},
+                {"name": "Tomato"}
+            ]
+        },
+        {
+            "name": "Bakery",
+            "foodItems": [
+                {"name": "Bread"},
+                {"name": "Croissant"},
+                {"name": "Bagel"}
+            ]
+        },
+        {
+            "name": "Beverages",
+            "foodItems": [
+                {"name": "Water"},
+                {"name": "Juice"},
+                {"name": "Soda"}
+            ]
+        },
+        {
+            "name": "Breakfast & Cereal",
+            "foodItems": [
+                {"name": "Oatmeal"},
+                {"name": "Granola"},
+                {"name": "Cereal"}
+            ]
+        },
+        {
+            "name": "Deli",
+            "foodItems": [
+                {"name": "Ham"},
+                {"name": "Turkey slice"},
+                {"name": "Salami"}
+            ]
+        },
+        {
+            "name": "Condiments & Dressings",
+            "foodItems": [
+                {"name": "Ketchup"},
+                {"name": "Mustard"},
+                {"name": "Soy sauce"}
+            ]
+        },
+        {
+            "name": "Cooking & Baking",
+            "foodItems": [
+                {"name": "Flour"},
+                {"name": "Sugar"},
+                {"name": "Olive oil"}
+            ]
+        },
+        {
+            "name": "Frozen Food",
+            "foodItems": [
+                {"name": "Frozen pizza"},
+                {"name": "Ice cream"},
+                {"name": "Frozen vegetables"}
+            ]
+        },
+        {
+            "name": "Grains, Pasta & Sides",
+            "foodItems": [
+                {"name": "Rice"},
+                {"name": "Pasta"},
+                {"name": "Quinoa"}
+            ]
+        },
+        {
+            "name": "Household & Cleaning",
+            "foodItems": [
+                {"name": "Dish soap"},
+                {"name": "Laundry detergent"}
+            ]
+        },
+        {
+            "name": "Meat",
+            "foodItems": [
+                {"name": "Chicken breast"},
+                {"name": "Ground beef"},
+                {"name": "Bacon"}
+            ]
+        },
+        {
+            "name": "Seafood",
+            "foodItems": [
+                {"name": "Salmon"},
+                {"name": "Shrimp"},
+                {"name": "Tuna"}
+            ]
+        },
+        {
+            "name": "Snacks",
+            "foodItems": [
+                {"name": "Chips"},
+                {"name": "Popcorn"},
+                {"name": "Chocolate"}
+            ]
+        },
+        {
+            "name": "Canned Goods",
+            "foodItems": [
+                {"name": "Canned beans"},
+                {"name": "Canned soup"},
+                {"name": "Canned corn"}
+            ]
+        },
+        {
+            "name": "Alcohol",
+            "foodItems": [
+                {"name": "Beer"},
+                {"name": "Wine"},
+                {"name": "Whiskey"}
+            ]
+        },
+        {
+            "name": "Pet Supplies",
+            "foodItems": [
+                {"name": "Dog food"},
+                {"name": "Cat food"},
+                {"name": "Pet treats"}
+            ]
+        },
+        {
+            "name": "Health & Personal Care",
+            "foodItems": [
+                {"name": "Shampoo"},
+                {"name": "Toothpaste"},
+                {"name": "Deodorant"}
+            ]
+        },
+        {
+            "name": "Other",
+            "foodItems": []
+        }
+    ]
+}

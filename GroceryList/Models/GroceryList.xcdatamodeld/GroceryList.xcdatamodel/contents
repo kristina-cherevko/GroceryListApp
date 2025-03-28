@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23605" systemVersion="24D81" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Category" representedClassName=".Category" syncable="YES">
+        <attribute name="createdAt" attributeType="Date" defaultDateTimeInterval="764537400" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" attributeType="String"/>
+        <relationship name="foodItems" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="FoodItem" inverseName="category" inverseEntity="FoodItem"/>
+        <relationship name="groceryItems" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="GroceryItem" inverseName="category" inverseEntity="GroceryItem"/>
+    </entity>
+    <entity name="FoodItem" representedClassName=".FoodItem" syncable="YES">
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" attributeType="String"/>
+        <relationship name="category" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="foodItems" inverseEntity="Category"/>
+    </entity>
+    <entity name="GroceryItem" representedClassName=".GroceryItem" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" defaultDateTimeInterval="764537100" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isBought" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="isFavorite" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="category" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="groceryItems" inverseEntity="Category"/>
+        <relationship name="store" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GroceryStore" inverseName="shopItems" inverseEntity="GroceryStore"/>
+    </entity>
+    <entity name="GroceryStore" representedClassName=".GroceryStore" syncable="YES">
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" attributeType="String"/>
+        <relationship name="shopItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GroceryItem" inverseName="store" inverseEntity="GroceryItem"/>
+    </entity>
+</model>
