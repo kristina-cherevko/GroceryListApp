@@ -29,6 +29,9 @@ class CategoryHeaderView: UICollectionReusableView {
     }
     
     private func setupUI() {
+        backgroundColor = UIColor.systemGray6
+//        layer.cornerRadius = 12
+        layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         addSubview(titleLabel)
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
@@ -36,7 +39,6 @@ class CategoryHeaderView: UICollectionReusableView {
             titleLabel.topAnchor.constraint(equalTo: topAnchor),
             titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
-        backgroundColor = UIColor.systemGray6
     }
     
     func configure(with title: String) {

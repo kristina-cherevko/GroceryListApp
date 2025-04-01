@@ -54,7 +54,19 @@ class GroceryListViewController: UIViewController {
         configuration.image = UIImage(systemName: "eye")
         configuration.baseForegroundColor = .crayola
         button.configuration = configuration
-        button.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        button.widthAnchor.constraint(equalToConstant: 28).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 24).isActive = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    let shareButton: UIButton = {
+       let button = UIButton()
+        var configuration = UIButton.Configuration.plain()
+        configuration.image = UIImage(systemName: "square.and.arrow.up")
+        configuration.baseForegroundColor = .crayola
+        button.configuration = configuration
+        button.widthAnchor.constraint(equalToConstant: 28).isActive = true
         button.heightAnchor.constraint(equalToConstant: 24).isActive = true
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -85,10 +97,11 @@ class GroceryListViewController: UIViewController {
 
     private func setupUI() {
         title = "My Grocery List"
-        view.backgroundColor = .systemBackground
  
-        
+        view.backgroundColor = .white
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+        
+        collectionView.backgroundColor = .systemBackground
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
         NSLayoutConstraint.activate([
@@ -104,16 +117,16 @@ class GroceryListViewController: UIViewController {
     }
     
     private func setupBarButtonItems() {
-//        let showBoughtButton = UIBarButtonItem(image: UIImage(systemName: "eye"), style: .plain, target: self, action: #selector(showBoughtButtonTapped))
-//        showBoughtButton.tintColor = .systemBlue
-        
-        let stackView = UIStackView(arrangedSubviews: [favoritesButton, recentAddedButton])
-        stackView.axis = .horizontal
-        stackView.spacing = 8
-        let leftBarButton = UIBarButtonItem(customView: stackView)
+        let leftStackView = UIStackView(arrangedSubviews: [favoritesButton, recentAddedButton])
+        leftStackView.axis = .horizontal
+        leftStackView.spacing = 8
+        let leftBarButton = UIBarButtonItem(customView: leftStackView)
         navigationItem.leftBarButtonItem = leftBarButton
         
-        let rightBarButton = UIBarButtonItem(customView: showBoughtButton)
+        let rightStackView = UIStackView(arrangedSubviews: [showBoughtButton, shareButton])
+        rightStackView.axis = .horizontal
+        rightStackView.spacing = 8
+        let rightBarButton = UIBarButtonItem(customView: rightStackView)
         navigationItem.rightBarButtonItem = rightBarButton
     }
 
@@ -135,19 +148,27 @@ class GroceryListViewController: UIViewController {
     }
     
     private func createLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewCompositionalLayout { sectionIndex, _ in
-            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(44))
+        return UICollectionViewCompositionalLayout { sectionIndex, _ in
+            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(50))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
-
-            let group = NSCollectionLayoutGroup.vertical(layoutSize: itemSize, subitems: [item])
-
+            
+            // Apply padding around each item to give a floating effect
+            item.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: .fixed(0), top: .fixed(8), trailing: .fixed(0), bottom: .fixed(8))
+            item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8)
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50))
+            let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+            
             let section = NSCollectionLayoutSection(group: group)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 0)
             section.boundarySupplementaryItems = [
-                NSCollectionLayoutBoundarySupplementaryItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(40)), elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+                NSCollectionLayoutBoundarySupplementaryItem(
+                    layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(36)),
+                    elementKind: UICollectionView.elementKindSectionHeader,
+                    alignment: .top
+                )
             ]
             return section
         }
-        return layout
     }
     
     private func setupSearchController() {
@@ -231,7 +252,7 @@ extension GroceryListViewController: UITableViewDataSource, UITableViewDelegate 
     }
 }
 
-
+// MARK: - UICollectionView DataSource & Delegate
 extension GroceryListViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return viewModel.categories.count
@@ -248,15 +269,16 @@ extension GroceryListViewController: UICollectionViewDataSource, UICollectionVie
         let items = viewModel.items(for: category)
         let item = items[indexPath.row]
         cell.configure(with: item)
+        cell.delegate = viewModel
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("did select item at")
         let category = viewModel.categories[indexPath.section]
         let items = viewModel.items(for: category)
         let item = items[indexPath.row]
-        viewModel.toggleItemBoughtStatus(item)
-        collectionView.reloadItems(at: [indexPath])
+        delegate?.didTapGroceryItem(item)
     }
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

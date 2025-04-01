@@ -8,7 +8,7 @@
 import UIKit
 
 protocol GroceryItemCellDelegate: AnyObject {
-    func didToggleCheckmark(for groceryItem: GroceryItem?)
+    func didTapCheckmark(for item: GroceryItem)
 }
 
 class GroceryItemCell: UICollectionViewCell {
@@ -22,28 +22,39 @@ class GroceryItemCell: UICollectionViewCell {
         return label
     }()
     
-    private let checkmarkImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "circle") // SF Symbol
-        imageView.tintColor = .gray
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
+    private let checkmarkButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "circle"), for: .normal)
+        button.tintColor = .systemGray4
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
+        contentView.backgroundColor = .systemBackground
+        contentView.layer.cornerRadius = 12
+        contentView.layer.shadowColor = UIColor.black.cgColor
+        contentView.layer.shadowOpacity = 0.1
+        contentView.layer.shadowOffset = CGSize(width: 0, height: 2)
+        contentView.layer.shadowRadius = 4
         contentView.addSubview(nameLabel)
-        contentView.addSubview(checkmarkImageView)
-        
+        contentView.addSubview(checkmarkButton)
+        checkmarkButton.addTarget(self, action: #selector(handleCheckmarkToggle), for: .touchUpInside)
         NSLayoutConstraint.activate([
             nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            nameLabel.leadingAnchor.constraint(equalTo: checkmarkImageView.trailingAnchor, constant: 8),
+            nameLabel.leadingAnchor.constraint(equalTo: checkmarkButton.trailingAnchor, constant: 10),
+            nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
             
-            checkmarkImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            checkmarkImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            checkmarkImageView.widthAnchor.constraint(equalToConstant: 24),
-            checkmarkImageView.heightAnchor.constraint(equalToConstant: 24)
+            checkmarkButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            checkmarkButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            checkmarkButton.widthAnchor.constraint(equalToConstant: 24),
+            checkmarkButton.heightAnchor.constraint(equalToConstant: 24),
         ])
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func prepareForReuse() {
@@ -51,14 +62,28 @@ class GroceryItemCell: UICollectionViewCell {
         nameLabel.textColor = .label
     }
     
+    private func setupUI() {
+        contentView.layer.cornerRadius = 16
+        contentView.layer.masksToBounds = true
+        
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.75
+        layer.shadowOffset = CGSize(width: 0, height: 0)
+        layer.shadowRadius = 20
+        layer.masksToBounds = false
+    }
+    
     func configure(with item: GroceryItem) {
         self.item = item
         nameLabel.text = item.name
-        checkmarkImageView.image = item.isBought ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle")
+        let imageName = item.isBought ? "checkmark.circle.fill" : "circle"
+        checkmarkButton.setImage(UIImage(systemName: imageName), for: .normal)
+        checkmarkButton.tintColor = item.isBought ? .kellyGreen : .systemGray4
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    @objc func handleCheckmarkToggle() {
+        guard let item = item else { return }
+        delegate?.didTapCheckmark(for: item)
     }
 }
 

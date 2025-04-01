@@ -30,13 +30,9 @@ class GroceryListViewModel {
         return groceryItems.filter { $0.category == category }
     }
     
-    func toggleItemBoughtStatus(_ item: GroceryItem) {
-        groceryItemManager.updateGroceryItemStatus(item, isBought: !item.isBought)
-        reloadData?()
-    }
+ 
     
     func addGroceryItem(name: String, category: Category? = nil) {
-        print(name, category)
         guard let category = category ?? categoryManager.fetchCategoryByName("Other") else { return }
         let newGroceryItem = groceryItemManager.addGroceryItem(name: name, category: category)
         groceryItems.append(newGroceryItem)
@@ -46,5 +42,14 @@ class GroceryListViewModel {
          }
         reloadData?()
     }
+    
+}
+
+extension GroceryListViewModel: GroceryItemCellDelegate {
+    func didTapCheckmark(for item: GroceryItem) {
+        groceryItemManager.updateGroceryItemStatus(item, isBought: !item.isBought)
+        reloadData?()
+    }
+    
     
 }

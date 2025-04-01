@@ -12,10 +12,26 @@ class EditGroceryItemViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        view.backgroundColor = .systemBackground
+        title = "Edit Item"
+        setupBarButtons()
     }
     
+    func setupBarButtons() {
+        let leftBarButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(closeVC))
+        let rightBarButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(saveChanges))
+        navigationItem.leftBarButtonItem = leftBarButton
+        navigationItem.rightBarButtonItem = rightBarButton
+    }
 
+    @objc func closeVC() {
+        dismiss(animated: true)
+    }
+    
+    @objc func saveChanges() {
+        print("saving changes")
+        dismiss(animated: true)
+    }
     /*
     // MARK: - Navigation
 

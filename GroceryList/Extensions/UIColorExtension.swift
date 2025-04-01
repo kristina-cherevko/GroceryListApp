@@ -10,6 +10,7 @@ import UIKit
 extension UIColor {
     static let amber: UIColor = UIColor(hexString: "#FFB300")!
     static let crayola: UIColor = UIColor(hexString: "#2F5BA5")!
+    static let kellyGreen: UIColor = UIColor(hexString: "#3FBD00")!
     
     public convenience init?(hexString: String?, transparency: CGFloat = 1) {
         guard let hexString = hexString else { return nil }

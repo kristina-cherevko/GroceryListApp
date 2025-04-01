@@ -25,10 +25,15 @@ class AppCoordinator: Coordinator {
 
 extension AppCoordinator: GroceryListViewControllerDelegate {
     func didTapGroceryItem(_ item: GroceryItem) {
+        print("tapped grocery item \(item.name)")
         let viewModel = EditGroceryItemViewModel(groceryItem: item)
         let editGroceryItemVC = EditGroceryItemViewController()
         editGroceryItemVC.viewModel = viewModel
-        navigationController.pushViewController(editGroceryItemVC, animated: true)
+        let navController = UINavigationController(rootViewController: editGroceryItemVC)
+        editGroceryItemVC.modalPresentationStyle = .formSheet
+            
+        
+        navigationController.present(navController, animated: true, completion: nil)
     }
     
     func didTapFavoritesButton() {
