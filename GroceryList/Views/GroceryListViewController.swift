@@ -287,5 +287,24 @@ extension GroceryListViewController: UICollectionViewDataSource, UICollectionVie
         header.configure(with: category.name)
         return header
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) {
+            UIView.animate(withDuration: 0.3) {
+                cell.contentView.backgroundColor = UIColor(white: 0.9, alpha: 1)
+                cell.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+            }
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) {
+            UIView.animate(withDuration: 0.3) {
+                cell.contentView.backgroundColor = .white // Revert to default color
+                cell.transform = .identity
+            }
+        }
+    }
+
 }
 

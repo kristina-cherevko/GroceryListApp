@@ -13,7 +13,7 @@ class CategoryHeaderView: UICollectionReusableView {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 16)
-        label.textColor = .label
+        label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -29,9 +29,8 @@ class CategoryHeaderView: UICollectionReusableView {
     }
     
     private func setupUI() {
-        backgroundColor = UIColor.systemGray6
+        backgroundColor = UIColor.kellyGreen.withAlphaComponent(0.7)
 //        layer.cornerRadius = 12
-        layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         addSubview(titleLabel)
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),

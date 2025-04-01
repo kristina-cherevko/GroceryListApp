@@ -9,4 +9,6 @@ enum CellIdentifiers {
     static let groceryItemCell = "GroceryItemCell"
     static let suggestionCell = "SuggestionCell"
     static let categoryHeaderView = "CategoryHeaderView"
+    static let editNameCell = "editNameCell"
+    static let editInfoCell = "editInfoCell"
 }
